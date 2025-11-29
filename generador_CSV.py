@@ -1,3 +1,5 @@
+# from preguntas import lista_preguntas
+
 # def guardar_csv(nombre_archivo: str, lista_diccionarios: list, separador: str = ";") -> bool:
 #     if type(lista_diccionarios) != list or len(lista_diccionarios) == 0:
 #         return False
@@ -106,3 +108,5 @@
 #             cadena_nueva += f"{str(lista[i])}{separador}"
         
 #     return cadena_nueva
+
+# guardar_csv("preguntas.csv", lista_preguntas, separador=";")

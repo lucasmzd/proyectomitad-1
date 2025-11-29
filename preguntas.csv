@@ -1,0 +1,43 @@
+categoria;descripcion;respuesta_1;respuesta_2;respuesta_3;respuesta_4;respuesta_correcta
+arte;¿Quién pintó La última cena?;Leonardo da Vinci;Van Gogh;Goya;Rembrandt;1
+arte;¿Quién pintó La noche estrellada?;Dalí;Picasso;Monet;Van Gogh;4
+arte;¿El Guernica es obra de...?;Picasso;Dalí;Miró;Rivera;1
+arte;¿Qué instrumento tocaba Mozart?;Piano;Guitarra;Trombón;Violín;1
+arte;¿Qué instrumento tiene 6 cuerdas normalmente?;Violín;Bajo eléctrico;Guitarra;Piano;3
+deporte;¿En qué deporte se usa raqueta?;Tenis;Rugby;Básquet;Fútbol;1
+deporte;¿Cuántos jugadores tiene un equipo de fútbol en cancha?;10;11;12;9;2
+deporte;¿Qué selección ganó el Mundial 2014?;España;Brasil;Alemania;Francia;3
+deporte;¿En qué deporte destacó Michael Jordan?;Básquet;Tenis;Atletismo;Boxeo;1
+deporte;¿En qué deporte destacó Michael Jordan?;Básquet;Tenis;Atletismo;Boxeo;1
+entretenimiento;¿Quién interpretó a Iron Man en el MCU?;Chris Evans;Robert Downey Jr;Mark Ruffalo;Tom Holland;2
+entretenimiento;¿En qué año se estrenó Avatar?;2005;2009;2012;2015;2
+entretenimiento;¿Qué empresa creó la consola PlayStation?;Sega;Nintendo;Sony;Microsoft;3
+entretenimiento;¿Cuál es el videojuego más vendido de la historia?;Minecraft;Tetris;GTA V;Fortnite;1
+entretenimiento;¿Quién escribió El Quijote?;Neruda;Borges;Miguel de Cervantes;Shakespeare;3
+entretenimiento;¿Cuál de estos es un estilo musical?;Pastel;Jazz;Óvalo;Clásico;2
+entretenimiento;¿Capital de Japón?;Kioto;Tokio;Osaka;Seúl;2
+geografia;¿Cuál es el río más largo del mundo según la mayoría?;Amazonas;Nilo;Yangtsé;Misisipi;1
+geografia;¿Capital de Japón?;Kioto;Tokio;Osaka;Seúl;2
+geografia;¿Qué país no tiene salida al mar?;España;Chile;Portugal;Bolivia;4
+geografia;¿Dónde queda el desierto del Sahara?;Asia;África;América;Oceanía;2
+geografia;¿Cuál es el país más grande del mundo?;EE.UU;China;Rusia;Canadá;3
+geografia;¿Cuál es la capital de Canadá?;Montreal;Toronto;Ottawa;Vancouver;3
+geografia;¿Qué continente tiene más países?;Europa;África;Asia;América;2
+geografia;¿Dónde está la Torre Eiffel?;Francia;Italia;Alemania;Bélgica;1
+geografia;¿Cuál es la capital de Australia?;Melbourne;Sídney;Canberra;Perth;3
+historia;¿Dónde se originó el boxeo moderno?;EE.UU;Grecia;Inglaterra;Francia;3
+historia;¿En qué año cayó el Muro de Berlín?;1969;1975;1989;1991;3
+historia;¿Quién fue el primer emperador romano?;Julio César;Nerón;Trajano;Augusto;4
+historia;¿Dónde se originó la democracia?;China;Grecia;Egipto;Roma;2
+historia;¿Quién descubrió América?;Cristóbal Colón;Magallanes;Marco Polo;Vasco da Gama;1
+historia;¿En qué siglo comenzó la Primera Guerra Mundial?;Siglo XIX;Siglo XX;Siglo XVIII;Siglo XXI;2
+historia;¿Quién fue el primer emperador romano?;Julio César;Nerón;Trajano;Augusto;4
+ciencia;¿Qué tipo de animal es un delfín?;Mamífero;Reptil;Pez;Anfibio;1
+ciencia;¿Qué gas respiramos principalmente?;Oxígeno;Hidrógeno;Nitrógeno;Helio;3
+ciencia;¿Cuál es el planeta más grande del sistema solar?;Tierra;Saturno;Júpiter;Neptuno;3
+ciencia;¿Qué órgano bombea la sangre?;Corazón;Pulmones;Hígado;Riñones;1
+ciencia;¿Qué ciencia estudia los seres vivos?;Física;Astronomía;Biología;Química;3
+ciencia;¿Cuál es el metal más liviano?;Oro;Hierro;Plata;Litio;4
+ciencia;¿Cuál es el animal terrestre más rápido?;León;Caballo;Guepardo;Lobo;3
+ciencia;¿Qué figura tiene tres lados?;Hexágono;Triángulo;Cuadrado;Círculo;2
+ciencia;¿Qué animal pone huevos?;Perro;Pato;Gato;Caballo;2

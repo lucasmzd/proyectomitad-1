@@ -15,6 +15,8 @@ def mostrar_game_over(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Eve
             if evento.key == pygame.K_RETURN:
                 datos_juego["nombre"] = datos_juego["nombre"][0:-1]
                 ventana="menu"
+            elif evento.key == pygame.K_BACKSPACE:
+                datos_juego["nombre"] = datos_juego["nombre"][0:-1]
     pantalla.fill(COLOR_BLANCO)
     mostrar_texto(pantalla,f"PERDISTE EL JUEGO: {datos_juego.get("puntuacion")}",(200,50),FUENTE_ARIAL_50,COLOR_NEGRO)
     if len(datos_juego.get("nombre","")) > 0:
