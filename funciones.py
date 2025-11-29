@@ -3,6 +3,7 @@ import os
 import time
 from constantes import *
 import datetime
+import json
 import pygame
 
 def mostrar_texto(surface, text, pos, font, color=pygame.Color('black')):
@@ -216,3 +217,67 @@ def sumar_bonus(datos_juego: dict, contador_correctas: int) -> int:
         datos_juego["cantidad_vidas"] += 1
         return 0
     return contador_correctas
+
+def generar_json(nombre_archivo: str, lista: list) -> bool:
+    if type(lista) == list and len(lista) > 0:
+        retorno = True
+        with open(nombre_archivo,"w",encoding="utf-8") as archivo:
+            json.dump(lista,archivo,indent=4)
+        del archivo
+    else:
+        retorno = False
+
+    return retorno
+
+def leer_json(nombre_archivo: str) -> any:
+    if type(nombre_archivo) == str and os.path.exists(nombre_archivo):
+        with open(nombre_archivo,"r",encoding="utf-8") as archivo:
+            retorno = json.load(archivo)
+        del archivo
+    else:
+        retorno = False
+
+    return retorno
+
+def guardar_partida(nombre: str, puntuacion: int, archivo: str = "puntajes.json"):
+    lista_partidas = leer_json(archivo)
+
+    if lista_partidas == False:
+        lista_partidas = []
+
+    lista_partidas.append({
+        "nombre": nombre,
+        "puntuacion": puntuacion,
+        "fecha": datetime.datetime.now().strftime("%d-%m-%Y")
+    })
+
+    generar_json(archivo, lista_partidas)
+
+def obtener_top_10(archivo: str = "puntajes.json",) -> list:
+    lista_partidas = leer_json(archivo)
+
+    if lista_partidas == False:
+        return []
+
+    top_10 = []
+    lista_partidas = lista_partidas.copy()
+
+    for i in range(10):
+        if len(lista_partidas) == 0:
+            break
+
+        max_puntuacion = -1 
+        indice_mejor = -1
+        for j in range(len(lista_partidas)):
+            partida_actual = lista_partidas[j]
+            puntuacion_actual = partida_actual.get("puntuacion", 0)
+
+            if puntuacion_actual > max_puntuacion:
+                max_puntuacion = puntuacion_actual
+                indice_mejor = j
+
+        if indice_mejor != -1:
+            mejor_partida = lista_partidas[indice_mejor]
+            top_10.append(mejor_partida)
+            del lista_partidas[indice_mejor]
+    return top_10
