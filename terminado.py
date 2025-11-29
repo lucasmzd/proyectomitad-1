@@ -20,13 +20,9 @@ def mostrar_game_over(pantalla: pygame.Surface, cola_eventos: list[pygame.event.
     ventana = "terminado"
     datos_juego["bandera_texto"] = not datos_juego.get("bandera_texto", False)
     cuadro_texto = crear_elemento_juego("texturas/textura_respuesta.jpg", 300, 50, 150, 275)
-
     for evento in cola_eventos:
         if evento.type == pygame.TEXTINPUT:
-
             texto = evento.text
-
-            
             if len(texto) == 1 and (
                 ('a' <= texto <= 'z') or
                 ('A' <= texto <= 'Z') or
@@ -34,10 +30,7 @@ def mostrar_game_over(pantalla: pygame.Surface, cola_eventos: list[pygame.event.
             ):
                 if len(datos_juego.get("nombre", "")) < 15:
                     datos_juego["nombre"] += texto
-        
         elif evento.type == pygame.KEYDOWN:
-
-        
             if evento.key == pygame.K_RETURN:
                 nombre = datos_juego.get("nombre", "").strip()
 
@@ -46,12 +39,9 @@ def mostrar_game_over(pantalla: pygame.Surface, cola_eventos: list[pygame.event.
                     ventana = "menu"
                 else:
                     datos_juego["error_nombre"] = "Solo letras y números (3 a 15 caracteres)"
-            
             elif evento.key == pygame.K_BACKSPACE:
                 datos_juego["nombre"] = datos_juego.get("nombre", "")[:-1]
-    
     pantalla.fill(COLOR_BLANCO)
-
     mostrar_texto(
         pantalla,
         f"PERDISTE EL JUEGO: {datos_juego.get('puntuacion', 0)}",
@@ -59,7 +49,6 @@ def mostrar_game_over(pantalla: pygame.Surface, cola_eventos: list[pygame.event.
         FUENTE_ARIAL_50,
         COLOR_NEGRO
     )
-
     texto_ingreso = datos_juego.get("nombre", "")
     if len(texto_ingreso) == 0:
         mostrar_texto(cuadro_texto["superficie"], "Ingrese su nombre", (10, 10), FUENTE_ARIAL_25, "#6F6B6B")
@@ -69,7 +58,6 @@ def mostrar_game_over(pantalla: pygame.Surface, cola_eventos: list[pygame.event.
         else:
             mostrar_texto(cuadro_texto["superficie"], texto_ingreso, (10, 10), FUENTE_ARIAL_30, COLOR_BLANCO)
     pantalla.blit(cuadro_texto["superficie"], cuadro_texto["rectangulo"])
-    
     if datos_juego.get("error_nombre"):
         mostrar_texto(
             pantalla,
@@ -78,5 +66,4 @@ def mostrar_game_over(pantalla: pygame.Surface, cola_eventos: list[pygame.event.
             FUENTE_ARIAL_25,
             (200, 0, 0)
         )
-    
     return ventana

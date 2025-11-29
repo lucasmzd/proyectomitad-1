@@ -8,13 +8,14 @@ fondo_dificultad = pygame.transform.scale(pygame.image.load("texturas/fondo.jpg"
 lista_botones_dificultad = crear_lista_botones("texturas/textura_respuesta.jpg", 150, 125, 3)
 lista_texto_dificultad = ["FACIL", "NORMAL", "DIFICIL"]
 
-def mostrar_dificultad(pantalla: pygame.Surface, cola_eventos) -> str:
+def mostrar_dificultad(pantalla: pygame.Surface, cola_eventos, datos_juego: dict) -> str:
     ventana = "dificultad"
     for evento in cola_eventos:
         if evento.type == pygame.MOUSEBUTTONDOWN and evento.button == 1:
             for i in range(len(lista_botones_dificultad)):
                 if lista_botones_dificultad[i]["rectangulo"].collidepoint(evento.pos):
                     SONIDO_CLICK.play()
+                    datos_juego["dificultad_actual"] = lista_texto_dificultad[i].lower()
                     return lista_texto_dificultad[i].lower()
     pantalla.blit(fondo_dificultad, (0, 0))
     for i in range(len(lista_botones_dificultad)):

@@ -10,6 +10,7 @@ from terminado import *
 from rankings import *
 from categoria import *
 from dificultad import *
+from personalizada import *
 
 pygame.init()
 pygame.display.set_caption("PREGUNTADOS")
@@ -17,10 +18,11 @@ pantalla = pygame.display.set_mode(PANTALLA)
 pygame.display.set_icon(pygame.image.load("texturas/icono.png"))
 reloj = pygame.time.Clock()
 datos_juego = crear_datos_juego()
+datos_juego["dificultad_actual"] = "normal"
+establecer_dificultad(datos_juego, "normal")
 ventana_actual = "menu"
 bandera_juego = False
 categoria_elegida = None
-dificultad_elegida = "normal"
 
 while True:
     reloj.tick(FPS)
@@ -38,19 +40,23 @@ while True:
             categoria_elegida = ventana_actual
             random.shuffle(lista_preguntas)
             reiniciar_estadisticas(datos_juego)
-            establecer_dificultad(datos_juego, dificultad_elegida)
+            dificultad_activa = datos_juego.get("dificultad_actual", "normal")
+            if dificultad_activa != "custom":
+                establecer_dificultad(datos_juego, dificultad_activa)
             bandera_juego = True
             ventana_actual = "juego"
     elif ventana_actual == "dificultad":
-        eleccion = mostrar_dificultad(pantalla, cola_eventos)
+        eleccion = mostrar_dificultad(pantalla, cola_eventos, datos_juego)
         if eleccion in ["facil", "normal", "dificil"]:
-            dificultad_elegida = eleccion
-            establecer_dificultad(datos_juego, dificultad_elegida)
+            datos_juego["dificultad_actual"] = eleccion
+            establecer_dificultad(datos_juego, eleccion)
             ventana_actual = "menu"
     elif ventana_actual == "juego":
         ventana_actual = mostrar_juego(pantalla, cola_eventos, datos_juego, categoria_elegida)
     elif ventana_actual == "ajustes":
         ventana_actual = mostrar_ajustes(pantalla, cola_eventos, datos_juego)
+    elif ventana_actual == "personalizada":
+        ventana_actual = mostrar_dificultad_personalizada(pantalla, cola_eventos, datos_juego)
     elif ventana_actual == "rankings":
         ventana_actual = mostrar_rankings(pantalla, cola_eventos)
     elif ventana_actual == "terminado":
