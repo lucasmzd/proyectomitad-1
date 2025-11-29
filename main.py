@@ -6,7 +6,7 @@ from menu import *
 from juego import *
 from ajustes import *
 from terminado import *
-from ranking import *
+from rankings import *
 from categoria import *
 from dificultad import *
 

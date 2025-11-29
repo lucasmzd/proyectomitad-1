@@ -5,31 +5,22 @@ from funciones import *
 pygame.init()
 
 def mostrar_game_over(pantalla: pygame.Surface, cola_eventos: list[pygame.event.Event], datos_juego: dict) -> str:
-    """
-    Muestra la pantalla de Game Over, permite ingresar nombre y guarda la partida.
-    """
     ventana = "terminado"
     datos_juego["bandera_texto"] = not datos_juego.get("bandera_texto", False)
     cuadro_texto = crear_elemento_juego("texturas/textura_respuesta.jpg", 300, 50, 150, 275)
 
     for evento in cola_eventos:
         if evento.type == pygame.TEXTINPUT:
-            # Agrega el texto ingresado al nombre
             datos_juego["nombre"] += evento.text
         elif evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_RETURN:
-                # Guardar la partida solo si se ingresó un nombre
                 if len(datos_juego.get("nombre", "").strip()) > 0:
                     guardar_partida(datos_juego["nombre"].strip(), datos_juego.get("puntuacion", 0))
-                ventana = "menu"  # Volver al menú
+                ventana = "menu"
             elif evento.key == pygame.K_BACKSPACE:
-                # Borrar el último carácter
                 datos_juego["nombre"] = datos_juego.get("nombre", "")[:-1]
-
-    # Limpiar pantalla
     pantalla.fill(COLOR_BLANCO)
 
-    # Mostrar puntuación final
     mostrar_texto(
         pantalla,
         f"PERDISTE EL JUEGO: {datos_juego.get('puntuacion', 0)}",
@@ -38,7 +29,6 @@ def mostrar_game_over(pantalla: pygame.Surface, cola_eventos: list[pygame.event.
         COLOR_NEGRO
     )
 
-    # Mostrar cuadro de texto para ingresar nombre
     texto_ingreso = datos_juego.get("nombre", "")
     if len(texto_ingreso) == 0:
         mostrar_texto(cuadro_texto["superficie"], "Ingrese su nombre", (10, 10), FUENTE_ARIAL_25, "#6F6B6B")
@@ -47,8 +37,5 @@ def mostrar_game_over(pantalla: pygame.Surface, cola_eventos: list[pygame.event.
             mostrar_texto(cuadro_texto["superficie"], f"{texto_ingreso}|", (10, 10), FUENTE_ARIAL_30, COLOR_BLANCO)
         else:
             mostrar_texto(cuadro_texto["superficie"], texto_ingreso, (10, 10), FUENTE_ARIAL_30, COLOR_BLANCO)
-
-    # Dibujar cuadro en pantalla
     pantalla.blit(cuadro_texto["superficie"], cuadro_texto["rectangulo"])
-
     return ventana
