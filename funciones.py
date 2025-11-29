@@ -37,37 +37,6 @@ def crear_datos_juego() -> dict:
     }
     return datos_juego
 
-# ESPECÍFICA (consola)
-def mostrar_pregunta_consola(pregunta_actual:dict) -> bool:
-    if type(pregunta_actual) == dict:
-        retorno = True
-        print(f"{pregunta_actual.get('descripcion','Dato no encontrado')}\n")
-        print(f"1.{pregunta_actual.get('respuesta_1','Dato no encontrado')}")
-        print(f"2.{pregunta_actual.get('respuesta_2','Dato no encontrado')}")
-        print(f"3.{pregunta_actual.get('respuesta_3','Dato no encontrado')}\n")
-    else:
-        retorno = False
-    return retorno
-
-def jugar_preguntados_consola(lista_preguntas:list,datos_juego:dict) -> bool:
-    if type(lista_preguntas) == list and len(lista_preguntas) > 0 and type(datos_juego) == dict:
-        retorno = True
-        mezclar_lista(lista_preguntas)
-        inicio = time.time()
-        while datos_juego.get("cantidad_vidas",0) != 0 and datos_juego.get("tiempo_restante",0) > 0:
-            pregunta_actual = obtener_pregunta_actual(datos_juego,lista_preguntas)
-            mostrar_datos_juego_consola(datos_juego)
-            mostrar_pregunta_consola(pregunta_actual)
-            respuesta = pedir_numero_consola("Su opcion: ","ERROR (1-3)\nSu opcion: ",1,3)
-            verificar_respuesta(pregunta_actual,datos_juego,respuesta)
-            mostrar_resultado_consola(pregunta_actual,respuesta)
-            pasar_pregunta(datos_juego,lista_preguntas)
-            actualizar_tiempo(inicio,time.time(),datos_juego)
-        terminar_juego(datos_juego)
-    else:
-        retorno = False
-    return retorno
-
 def obtener_pregunta_actual(datos_juego:dict,lista_preguntas:list) -> dict | None:
     if type(datos_juego) == dict and type(lista_preguntas) == list and len(lista_preguntas) > 0 and datos_juego.get("indice") != None:
         indice = datos_juego.get("indice")
@@ -88,25 +57,6 @@ def modificar_puntuacion(datos_juego:dict,incremento:int) -> bool:
     if type(datos_juego) == dict and datos_juego.get("puntuacion") != None:
         retorno = True
         datos_juego["puntuacion"] += incremento
-    else:
-        retorno = False
-    return retorno
-
-def mostrar_datos_juego_consola(datos_juego:dict) -> bool:
-    print(f"TIEMPO RESTANTE: {datos_juego.get('tiempo_restante','Dato erroneo')} segundos")
-    print(f"VIDAS: {datos_juego.get('cantidad_vidas','Dato erroneo')}")
-    print(f"PUNTACION: {datos_juego.get('puntuacion','Dato erroneo')} puntos\n")
-    
-def mostrar_resultado_consola(pregunta_actual:dict,respuesta:int) -> bool:
-    if type(pregunta_actual) == dict and pregunta_actual.get("respuesta_correcta") != None:
-        retorno = True
-        os.system('clear')
-        os.system('clear')
-        if respuesta == pregunta_actual.get("respuesta_correcta"):
-            print("RESPUESTA CORRECTA")
-        else:
-            print("RESPUESTA INCORRECTA")
-        limpiar_consola()
     else:
         retorno = False
     return retorno
@@ -171,39 +121,39 @@ def reiniciar_estadisticas(datos_juego:dict) -> bool:
         retorno = False
     return retorno
 
-def terminar_juego(datos_juego:dict) -> bool:
-    if type(datos_juego) == dict:
-        print("GAME OVER\n")
-        datos_juego["nombre"] = input("Ingrese su nombre: ")     
-        mostrar_resultados(datos_juego)
-        reiniciar_estadisticas(datos_juego)
-        retorno = True
-    else:
-        retorno = False
-    return retorno
+# def terminar_juego(datos_juego:dict) -> bool:
+#     if type(datos_juego) == dict:
+#         print("GAME OVER\n")
+#         datos_juego["nombre"] = input("Ingrese su nombre: ")     
+#         mostrar_resultados(datos_juego)
+#         reiniciar_estadisticas(datos_juego)
+#         retorno = True
+#     else:
+#         retorno = False
+#     return retorno
         
-def mostrar_resultados(datos_juego:dict) -> bool:
-    if type(datos_juego) == dict:
-        retorno = True
-        print(f"PARTIDA FINALIZADA EL DIA: {datetime.datetime.now()}")
-        print(f"NOMBRE: {datos_juego.get('nombre','No encontrado')}")
-        print(f"PUNTUACION TOTAL: {datos_juego.get('puntuacion','No encontrado')} PUNTOS")
-    else:
-        retorno = False
-    return retorno
+# def mostrar_resultados(datos_juego:dict) -> bool:
+#     if type(datos_juego) == dict:
+#         retorno = True
+#         print(f"PARTIDA FINALIZADA EL DIA: {datetime.datetime.now()}")
+#         print(f"NOMBRE: {datos_juego.get('nombre','No encontrado')}")
+#         print(f"PUNTUACION TOTAL: {datos_juego.get('puntuacion','No encontrado')} PUNTOS")
+#     else:
+#         retorno = False
+#     return retorno
 
-def actualizar_tiempo(tiempo_inicio:float,tiempo_actual:float,datos_juego:dict) -> bool:
-    """
-    Actualiza tiempo_restante usando la configuración 'tiempo_pregunta' dentro de datos_juego.
-    """
-    if type(datos_juego) == dict:
-        retorno = True
-        tiempo_transcurrido = int(tiempo_actual - tiempo_inicio)
-        tiempo_cfg = datos_juego.get("tiempo_pregunta", TIEMPO_TOTAL)
-        datos_juego["tiempo_restante"] = max(0, tiempo_cfg - tiempo_transcurrido)
-    else:
-        retorno = False
-    return retorno
+# def actualizar_tiempo(tiempo_inicio:float,tiempo_actual:float,datos_juego:dict) -> bool:
+#     """
+#     Actualiza tiempo_restante usando la configuración 'tiempo_pregunta' dentro de datos_juego.
+#     """
+#     if type(datos_juego) == dict:
+#         retorno = True
+#         tiempo_transcurrido = int(tiempo_actual - tiempo_inicio)
+#         tiempo_cfg = datos_juego.get("tiempo_pregunta", TIEMPO_TOTAL)
+#         datos_juego["tiempo_restante"] = max(0, tiempo_cfg - tiempo_transcurrido)
+#     else:
+#         retorno = False
+#     return retorno
 
 # FUNCIONES PYGAME
 def crear_elemento_juego(textura:str,ancho_elemento:int,alto_elemento:int,x:int,y:int) -> dict | None:
