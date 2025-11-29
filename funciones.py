@@ -106,10 +106,15 @@ def reiniciar_estadisticas(datos_juego:dict) -> bool:
             "tiempo_restante": tiempo_cfg,
             "puntuacion": 0,
             "cantidad_vidas": vidas_cfg,
-            "indice": 0
+            "indice": 0,
+            "racha": 0
         })
         if "inicio_pregunta" in datos_juego:
             del datos_juego["inicio_pregunta"]
+        if "comodines" in datos_juego:
+            del datos_juego["comodines"]
+        if "preguntas_filtradas" in datos_juego:
+            del datos_juego["preguntas_filtradas"]
         return True
     return False
 
@@ -159,15 +164,22 @@ def mostrar_pregunta_pygame(pregunta_actual:dict, pantalla:pygame.Surface, cuadr
     pantalla.blit(cuadro_pregunta["superficie"], cuadro_pregunta["rectangulo"])
     respuestas_keys = ["respuesta_1", "respuesta_2", "respuesta_3", "respuesta_4"]
 
+    COLOR_GRIS_OSCURO = (100, 100, 100)
     for i in range(4):
         if lista_respuestas[i]:
-            lista_respuestas[i]["superficie"].fill((0,0,0,0))
+            # No limpiar si está eliminada por la bomba
+            if not lista_respuestas[i].get("eliminada", False):
+                lista_respuestas[i]["superficie"].fill((0,0,0,0))
+            
+            # Color del texto: gris si está eliminada, blanco si no
+            color_texto = COLOR_GRIS_OSCURO if lista_respuestas[i].get("eliminada", False) else COLOR_BLANCO
+            
             mostrar_texto(
                 lista_respuestas[i]["superficie"],
                 pregunta_actual.get(respuestas_keys[i], ""),
                 (20,20),
                 FUENTE_ARIAL_20,
-                COLOR_BLANCO
+                color_texto
             )
             pantalla.blit(lista_respuestas[i]["superficie"], lista_respuestas[i]["rectangulo"])
     return True
