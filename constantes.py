@@ -1,0 +1,43 @@
+import pygame
+
+pygame.init()
+
+#COLORES
+COLOR_BLANCO = (255,255,255)
+COLOR_NEGRO = (0,0,0)
+COLOR_VERDE = (0,255,0)
+COLOR_ROJO = (255,0,0)
+COLOR_AZUL = (18,58,240)
+COLOR_VIOLETA = (134,23,219)
+
+#PANTALLA
+ANCHO = 600
+ALTO = 600
+PANTALLA = (ANCHO,ALTO)
+FPS = 30
+
+#ELEMENTOS JUEGO
+ANCHO_PREGUNTA = 350
+ALTO_PREGUNTA = 150
+ANCHO_RESPUESTA = 250
+ALTO_RESPUESTA = 60
+ANCHO_BOTON = 300
+ALTO_BOTON = 70
+POS_X_BOTON = (ANCHO - ANCHO_BOTON) / 2
+
+#LOGICA JUEGO
+CANTIDAD_VIDAS = 3
+PUNTUACION_ACIERTO = 100
+PUNTUACION_ERROR = 25
+TIEMPO_TOTAL = 30
+
+#FUENTES
+FUENTE_ARIAL_20 = pygame.font.SysFont("Arial",20,False)
+FUENTE_ARIAL_25 = pygame.font.SysFont("Arial",25,False)
+FUENTE_ARIAL_30 = pygame.font.SysFont("Arial",30,False)
+FUENTE_ARIAL_30_NEGRITA = pygame.font.SysFont("Arial",30,True)
+FUENTE_ARIAL_50 = pygame.font.SysFont("Arial",50,False)
+
+#SONIDOS
+SONIDO_CLICK = pygame.mixer.Sound("sonidos/click.mp3")
+SONIDO_ERROR = pygame.mixer.Sound("sonidos/error.mp3")
