@@ -1,13 +1,14 @@
 import pygame
-from Funciones import *
-from Constantes import *
-from Preguntas import lista_preguntas
-from Menu import *
-from Juego import *
-from Ajustes import *
-from Terminado import *
-from Rankings import *
-from Categoria import *
+from funciones import *
+from constantes import *
+from preguntas import lista_preguntas
+from menu import *
+from juego import *
+from ajustes import *
+from terminado import *
+from ranking import *
+from categoria import *
+from dificultad import *
 
 pygame.init()
 
@@ -15,12 +16,12 @@ pygame.display.set_caption("PREGUNTADOS")
 pantalla = pygame.display.set_mode(PANTALLA)
 pygame.display.set_icon(pygame.image.load("texturas/icono.png"))
 reloj = pygame.time.Clock()
-
 datos_juego = crear_datos_juego()
 ventana_actual = "menu"
 bandera_juego = False
 lista_rankings = []
 categoria_elegida = None
+dificultad_elegida = "normal"
 
 while True:
     reloj.tick(FPS)
@@ -38,10 +39,17 @@ while True:
             categoria_elegida = ventana_actual
             random.shuffle(lista_preguntas)
             reiniciar_estadisticas(datos_juego)
+            establecer_dificultad(datos_juego, dificultad_elegida)
             bandera_juego = True
             ventana_actual = "juego"
+    elif ventana_actual == "dificultad":
+        eleccion = mostrar_dificultad(pantalla, cola_eventos)
+        if eleccion in ["facil", "normal", "dificil"]:
+            dificultad_elegida = eleccion
+            establecer_dificultad(datos_juego, dificultad_elegida)
+            ventana_actual = "menu"
     elif ventana_actual == "juego":
-        ventana_actual = mostrar_juego(pantalla,cola_eventos,datos_juego,categoria_elegida)
+        ventana_actual = mostrar_juego(pantalla, cola_eventos, datos_juego, categoria_elegida)
     elif ventana_actual == "ajustes":
         ventana_actual = mostrar_ajustes(pantalla, cola_eventos, datos_juego)
     elif ventana_actual == "rankings":
