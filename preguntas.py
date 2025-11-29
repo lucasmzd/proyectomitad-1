@@ -15,7 +15,7 @@ lista_preguntas = [
 {"categoria":"entretenimiento","descripcion":"¿Cuál es el videojuego más vendido de la historia?","respuesta_1":"Minecraft","respuesta_2":"Tetris","respuesta_3":"GTA V","respuesta_4":"Fortnite","respuesta_correcta":1},
 {"categoria":"entretenimiento","descripcion":"¿Quién escribió El Quijote?","respuesta_1":"Neruda","respuesta_2":"Borges","respuesta_3":"Miguel de Cervantes","respuesta_4":"Shakespeare","respuesta_correcta":3},
 {"categoria":"entretenimiento","descripcion":"¿Cuál de estos es un estilo musical?","respuesta_1":"Pastel","respuesta_2":"Jazz","respuesta_3":"Óvalo","respuesta_4":"Clásico","respuesta_correcta":2},
-{"categoria":"entretenimiento","descripcion":"¿Capital de Japón?","respuesta_1":"Kioto","respuesta_2":"Tokio","respuesta_3":"Osaka","respuesta_4":"Seúl","respuesta_correcta":2},
+{"categoria":"geografia","descripcion":"¿Capital de Japón?","respuesta_1":"Kioto","respuesta_2":"Tokio","respuesta_3":"Osaka","respuesta_4":"Seúl","respuesta_correcta":2},
 {"categoria":"geografia","descripcion":"¿Cuál es el río más largo del mundo según la mayoría?","respuesta_1":"Amazonas","respuesta_2":"Nilo","respuesta_3":"Yangtsé","respuesta_4":"Misisipi","respuesta_correcta":1},
 {"categoria":"geografia","descripcion":"¿Capital de Japón?","respuesta_1":"Kioto","respuesta_2":"Tokio","respuesta_3":"Osaka","respuesta_4":"Seúl","respuesta_correcta":2},
 {"categoria":"geografia","descripcion":"¿Qué país no tiene salida al mar?","respuesta_1":"España","respuesta_2":"Chile","respuesta_3":"Portugal","respuesta_4":"Bolivia","respuesta_correcta":4},

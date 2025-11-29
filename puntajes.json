@@ -1,17 +1,17 @@
 [
     {
-        "nombre": "lucas",
+        "nombre": "user1",
         "puntuacion": -45,
         "fecha": "29-11-2025"
     },
     {
-        "nombre": "asdasd",
-        "puntuacion": -20,
+        "nombre": "user2",
+        "puntuacion": 30,
         "fecha": "29-11-2025"
     },
     {
-        "nombre": "asdasd",
-        "puntuacion": -45,
+        "nombre": "los 4",
+        "puntuacion": 530,
         "fecha": "29-11-2025"
     }
 ]

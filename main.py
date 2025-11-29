@@ -1,4 +1,5 @@
 import pygame
+import random
 from funciones import *
 from constantes import *
 from preguntas import lista_preguntas
@@ -11,7 +12,6 @@ from categoria import *
 from dificultad import *
 
 pygame.init()
-
 pygame.display.set_caption("PREGUNTADOS")
 pantalla = pygame.display.set_mode(PANTALLA)
 pygame.display.set_icon(pygame.image.load("texturas/icono.png"))
@@ -19,7 +19,6 @@ reloj = pygame.time.Clock()
 datos_juego = crear_datos_juego()
 ventana_actual = "menu"
 bandera_juego = False
-lista_rankings = []
 categoria_elegida = None
 dificultad_elegida = "normal"
 
@@ -53,7 +52,7 @@ while True:
     elif ventana_actual == "ajustes":
         ventana_actual = mostrar_ajustes(pantalla, cola_eventos, datos_juego)
     elif ventana_actual == "rankings":
-        ventana_actual = mostrar_rankings(pantalla, cola_eventos, lista_rankings)
+        ventana_actual = mostrar_rankings(pantalla, cola_eventos)
     elif ventana_actual == "terminado":
         if bandera_juego:
             pygame.mixer.music.stop()
