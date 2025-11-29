@@ -6,7 +6,7 @@ pygame.init()
 
 fondo_menu = pygame.transform.scale(pygame.image.load("texturas/fondo.jpg"),PANTALLA)
 lista_botones = crear_lista_botones("texturas/textura_respuesta.jpg",150,125,5)
-lista_texto_botones = ["JUGAR","DIFICULTAD","RANKING","AJUSTES","SALIR"]
+lista_texto_botones = ["JUGAR","DIFICULTAD","RANKINGS","AJUSTES","SALIR"]
 
 def mostrar_menu(pantalla:pygame.Surface, cola_eventos:list[pygame.event.Event]) -> str:
     ventana = "menu"
