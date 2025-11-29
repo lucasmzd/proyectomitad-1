@@ -5,8 +5,8 @@ from funciones import *
 pygame.init()
 
 fondo_categoria = pygame.transform.scale(pygame.image.load("texturas/fondo.jpg"),PANTALLA)
-lista_botones_categoria = crear_lista_botones("texturas/textura_respuesta.jpg", 150, 125, 4)
-lista_texto_categoria = ["ENTRETENIMIENTO","DEPORTE","CIENCIA","HISTORIA"]
+lista_botones_categoria = crear_lista_botones("texturas/textura_respuesta.jpg", 150, 60, 6)
+lista_texto_categoria = ["ENTRETENIMIENTO","DEPORTE","CIENCIA","HISTORIA", "GEOGRAFIA", "ARTE"]
 
 def mostrar_categoria(pantalla: pygame.Surface, cola_eventos) -> str:
     ventana = "categoria"

@@ -35,7 +35,7 @@ while True:
         ventana_actual = "categoria"
     elif ventana_actual == "categoria":
         ventana_actual = mostrar_categoria(pantalla, cola_eventos)
-        if ventana_actual in ["entretenimiento", "deporte", "ciencia", "historia"]:
+        if ventana_actual in ["entretenimiento", "deporte", "ciencia", "historia", "geografia", "arte"]:
             categoria_elegida = ventana_actual
             random.shuffle(lista_preguntas)
             reiniciar_estadisticas(datos_juego)

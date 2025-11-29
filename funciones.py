@@ -194,24 +194,19 @@ def cambiar_musica_fondo(musica:str, datos_juego:dict) -> bool:
     return False
 
 def establecer_dificultad(datos_juego: dict, dificultad: str) -> None:
-    """
-    Configura valores en datos_juego para la dificultad seleccionada.
-    - dificultad esperada en minúsculas o mayúsculas (se normaliza).
-    """
     if type(datos_juego) != dict or type(dificultad) != str:
         return None
-    d = dificultad.lower()
-    if d == "facil" or d == "fácil":
+    if dificultad == "facil":
         datos_juego["tiempo_pregunta"] = 30
         datos_juego["puntos_por_respuesta"] = 50
         datos_juego["cantidad_vidas"] = 5
         datos_juego["puntos_error"] = 10
-    elif d == "normal":
+    elif dificultad == "normal":
         datos_juego["tiempo_pregunta"] = 20
         datos_juego["puntos_por_respuesta"] = 25
         datos_juego["cantidad_vidas"] = 3
         datos_juego["puntos_error"] = 15
-    elif d == "dificil" or d == "difícil":
+    elif dificultad == "dificil":
         datos_juego["tiempo_pregunta"] = 10
         datos_juego["puntos_por_respuesta"] = 10
         datos_juego["cantidad_vidas"] = 1
