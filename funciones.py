@@ -58,21 +58,25 @@ def modificar_puntuacion(datos_juego:dict, incremento:int) -> bool:
 
 def verificar_respuesta(pregunta_actual:dict, datos_juego:dict, respuesta:int):
     """
-    Usa valores de datos_juego:
-     - puntos_por_respuesta: al acertar (positivo)
-     - puntos_error: valor que se resta al fallar (se aplica como negativo)
+    respuesta: número 1–4 según la opción que clickeó el usuario
     """
-    if type(pregunta_actual) == dict and pregunta_actual.get("respuesta_correcta") != None:
-        puntos_acierto = datos_juego.get("puntos_por_respuesta", PUNTUACION_ACIERTO)
-        puntos_error = datos_juego.get("puntos_error", PUNTUACION_ERROR)
-        if respuesta == pregunta_actual.get("respuesta_correcta"):
-            modificar_puntuacion(datos_juego, puntos_acierto)
-            return True
-        else:
-            modificar_puntuacion(datos_juego, -abs(puntos_error))
-            modificar_vida(datos_juego, -1)
-            return False
-    return None
+    if not isinstance(pregunta_actual, dict):
+        return None
+
+    correcta = pregunta_actual.get("respuesta_correcta")
+    if correcta is None:
+        return None
+
+    puntos_acierto = datos_juego.get("puntos_por_respuesta", PUNTUACION_ACIERTO)
+    puntos_error = datos_juego.get("puntos_error", PUNTUACION_ERROR)
+
+    if respuesta == correcta:
+        modificar_puntuacion(datos_juego, puntos_acierto)
+        return True
+    else:
+        modificar_puntuacion(datos_juego, -abs(puntos_error))
+        modificar_vida(datos_juego, -1)
+        return False
 
 def pasar_pregunta(datos_juego:dict, lista_preguntas:list) -> bool:
     if type(datos_juego) == dict and datos_juego.get("indice") != None:
@@ -96,10 +100,6 @@ def mezclar_lista(lista_preguntas:list) -> bool:
     return False
 
 def reiniciar_estadisticas(datos_juego:dict) -> bool:
-    """
-    Reinicia estadísticas antes de una partida.
-    Toma configuración desde datos_juego (tiempo_pregunta y cantidad_vidas).
-    """
     if type(datos_juego) == dict:
         tiempo_cfg = datos_juego.get("tiempo_pregunta", TIEMPO_TOTAL)
         vidas_cfg = datos_juego.get("cantidad_vidas", CANTIDAD_VIDAS)
@@ -139,14 +139,6 @@ def mostrar_datos_juego_pygame(pantalla:pygame.Surface, datos_juego:dict):
     mostrar_texto(pantalla, f"Vidas: {datos_juego.get('cantidad_vidas')}", (10,60), FUENTE_ARIAL_20)
 
 def responder_pregunta_pygame(lista_respuestas, posicion_click, sonido_click, datos_juego, lista_preguntas, pregunta_actual):
-    """
-    Procesa el click sobre las respuestas:
-    - reproduce sonido
-    - verifica respuesta mediante verificar_respuesta
-    - avanza la pregunta con pasar_pregunta
-    - reinicia el temporizador (inicio_pregunta + tiempo_restante)
-    Devuelve True si se procesó una respuesta (para que el caller actualice elementos visuales).
-    """
     if lista_respuestas is None or pregunta_actual is None:
         return False
 
@@ -162,17 +154,24 @@ def responder_pregunta_pygame(lista_respuestas, posicion_click, sonido_click, da
     return False
 
 def mostrar_pregunta_pygame(pregunta_actual:dict, pantalla:pygame.Surface, cuadro_pregunta:dict, lista_respuestas:list) -> bool:
-    if type(pregunta_actual) == dict:
-        mostrar_texto(cuadro_pregunta["superficie"], pregunta_actual.get("descripcion"), (10,10), FUENTE_ARIAL_30)
-        pantalla.blit(cuadro_pregunta["superficie"], cuadro_pregunta["rectangulo"])
-        mostrar_texto(lista_respuestas[0]["superficie"], pregunta_actual.get("respuesta_1"), (20,20), FUENTE_ARIAL_20, COLOR_BLANCO)
-        mostrar_texto(lista_respuestas[1]["superficie"], pregunta_actual.get("respuesta_2"), (20,20), FUENTE_ARIAL_20, COLOR_BLANCO)
-        mostrar_texto(lista_respuestas[2]["superficie"], pregunta_actual.get("respuesta_3"), (20,20), FUENTE_ARIAL_20, COLOR_BLANCO)
-        for i in range(len(lista_respuestas)):
-            if lista_respuestas[i]:
-                pantalla.blit(lista_respuestas[i]["superficie"], lista_respuestas[i]["rectangulo"])
-        return True
-    return False
+    if not isinstance(pregunta_actual, dict):
+        return False
+    mostrar_texto(cuadro_pregunta["superficie"], pregunta_actual.get("descripcion"), (10,10), FUENTE_ARIAL_30)
+    pantalla.blit(cuadro_pregunta["superficie"], cuadro_pregunta["rectangulo"])
+    respuestas_keys = ["respuesta_1", "respuesta_2", "respuesta_3", "respuesta_4"]
+
+    for i in range(4):
+        if lista_respuestas[i]:
+            lista_respuestas[i]["superficie"].fill((0,0,0,0))
+            mostrar_texto(
+                lista_respuestas[i]["superficie"],
+                pregunta_actual.get(respuestas_keys[i], ""),
+                (20,20),
+                FUENTE_ARIAL_20,
+                COLOR_BLANCO
+            )
+            pantalla.blit(lista_respuestas[i]["superficie"], lista_respuestas[i]["rectangulo"])
+    return True
 
 def crear_lista_botones(textura:str, x:int, y:int, cantidad_botones:int) -> list:
     lista_botones = []

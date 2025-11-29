@@ -22,6 +22,7 @@ def actualizar_tiempo(datos_juego):
     if "inicio_pregunta" not in datos_juego:
         iniciar_tiempo_pregunta(datos_juego)
         return
+    
     ahora = pygame.time.get_ticks()
     transcurrido = (ahora - datos_juego["inicio_pregunta"]) // 1000
     tiempo_cfg = datos_juego.get("tiempo_pregunta", TIEMPO_TOTAL)
@@ -35,20 +36,30 @@ def actualizar_tiempo(datos_juego):
 def mostrar_juego(pantalla: pygame.Surface, cola_eventos, datos_juego, categoria_elegida):
     ventana = "juego"
     cuadro_pregunta = crear_elemento_juego("texturas/textura_pregunta.jpg", ANCHO_PREGUNTA, ALTO_PREGUNTA, 80, 100)
-    lista_respuestas = crear_lista_respuestas("texturas/textura_respuesta.jpg", 125, 260, 3)
+    lista_respuestas = crear_lista_respuestas("texturas/textura_respuesta.jpg", 125, 260, 4)
     pregunta_actual = obtener_pregunta_actual(datos_juego, lista_preguntas)
     if "inicio_pregunta" not in datos_juego:
         iniciar_tiempo_pregunta(datos_juego)
     actualizar_tiempo(datos_juego)
+    # EVENTOS
     for evento in cola_eventos:
         if evento.type == pygame.MOUSEBUTTONDOWN and evento.button == 1:
-            procesado = responder_pregunta_pygame(lista_respuestas, evento.pos, SONIDO_CLICK, datos_juego, lista_preguntas, pregunta_actual)
+            procesado = responder_pregunta_pygame(
+                lista_respuestas,
+                evento.pos,
+                SONIDO_CLICK,
+                datos_juego,
+                lista_preguntas,
+                pregunta_actual
+            )
+
             if procesado:
                 pregunta_actual = obtener_pregunta_actual(datos_juego, lista_preguntas)
                 cuadro_pregunta = crear_elemento_juego("texturas/textura_pregunta.jpg", ANCHO_PREGUNTA, ALTO_PREGUNTA, 80, 100)
-                lista_respuestas = crear_lista_respuestas("texturas/textura_respuesta.jpg", 125, 260, 3)
+                lista_respuestas = crear_lista_respuestas("texturas/textura_respuesta.jpg", 125, 260, 4)
     if datos_juego.get("cantidad_vidas", 0) <= 0:
         ventana = "terminado"
+
     fondo_actual = fondos.get(categoria_elegida, pygame.Surface(PANTALLA))
     if isinstance(fondo_actual, pygame.Surface) and fondo_actual.get_size() != PANTALLA:
         fondo_actual = pygame.transform.scale(fondo_actual, PANTALLA)
