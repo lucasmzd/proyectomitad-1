@@ -22,12 +22,10 @@ def actualizar_tiempo(datos_juego):
     if "inicio_pregunta" not in datos_juego:
         iniciar_tiempo_pregunta(datos_juego)
         return
-    
     ahora = pygame.time.get_ticks()
     transcurrido = (ahora - datos_juego["inicio_pregunta"]) // 1000
     tiempo_cfg = datos_juego.get("tiempo_pregunta", TIEMPO_TOTAL)
     datos_juego["tiempo_restante"] = max(0, tiempo_cfg - transcurrido)
-
     if datos_juego["tiempo_restante"] <= 0:
         datos_juego["cantidad_vidas"] -= 1
         pasar_pregunta(datos_juego, lista_preguntas)
@@ -59,7 +57,6 @@ def mostrar_juego(pantalla: pygame.Surface, cola_eventos, datos_juego, categoria
                 lista_respuestas = crear_lista_respuestas("texturas/textura_respuesta.jpg", 125, 260, 4)
     if datos_juego.get("cantidad_vidas", 0) <= 0:
         ventana = "terminado"
-
     fondo_actual = fondos.get(categoria_elegida, pygame.Surface(PANTALLA))
     if isinstance(fondo_actual, pygame.Surface) and fondo_actual.get_size() != PANTALLA:
         fondo_actual = pygame.transform.scale(fondo_actual, PANTALLA)

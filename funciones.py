@@ -34,6 +34,7 @@ def crear_datos_juego() -> dict:
         "indice": 0,
         "volumen_musica": 100,
         "bandera_texto": False,
+        "racha": 0,
     }
     return datos_juego
 
@@ -57,25 +58,22 @@ def modificar_puntuacion(datos_juego:dict, incremento:int) -> bool:
     return False
 
 def verificar_respuesta(pregunta_actual:dict, datos_juego:dict, respuesta:int):
-    """
-    respuesta: número 1–4 según la opción que clickeó el usuario
-    """
     if not isinstance(pregunta_actual, dict):
         return None
-
     correcta = pregunta_actual.get("respuesta_correcta")
     if correcta is None:
         return None
-
     puntos_acierto = datos_juego.get("puntos_por_respuesta", PUNTUACION_ACIERTO)
     puntos_error = datos_juego.get("puntos_error", PUNTUACION_ERROR)
-
     if respuesta == correcta:
         modificar_puntuacion(datos_juego, puntos_acierto)
+        datos_juego["racha"] += 1
+        datos_juego["racha"] = sumar_bonus(datos_juego, datos_juego["racha"])
         return True
     else:
         modificar_puntuacion(datos_juego, -abs(puntos_error))
         modificar_vida(datos_juego, -1)
+        datos_juego["racha"] = 0
         return False
 
 def pasar_pregunta(datos_juego:dict, lista_preguntas:list) -> bool:
@@ -212,3 +210,9 @@ def establecer_dificultad(datos_juego: dict, dificultad: str) -> None:
         datos_juego["puntos_error"] = 20
     datos_juego["tiempo_restante"] = datos_juego.get("tiempo_pregunta", TIEMPO_TOTAL)
     return None
+
+def sumar_bonus(datos_juego: dict, contador_correctas: int) -> int:
+    if contador_correctas >= 5:
+        datos_juego["cantidad_vidas"] += 1
+        return 0
+    return contador_correctas
